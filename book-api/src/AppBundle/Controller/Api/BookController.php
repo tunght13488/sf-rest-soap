@@ -20,7 +20,7 @@ class BookController extends FOSRestController
         $repo = $this->getDoctrine()->getManager()->getRepository('AppBundle:Book');
         $entities = $repo->findByConditions($request->query->all());
 
-        $view = $this->view($entities, 200)
+        $view = $this->view($entities->toArray(), 200)
                      ->setTemplate(':api/book:index.html.twig');
 
         return $this->handleView($view);

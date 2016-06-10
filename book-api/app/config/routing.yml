@@ -6,3 +6,7 @@ api_book:
     type: rest
     resource: "@AppBundle/Controller/Api/BookController.php"
     prefix: api
+
+_besimple_soap:
+    resource: "@BeSimpleSoapBundle/Resources/config/routing/webservicecontroller.xml"
+    prefix:   /ws

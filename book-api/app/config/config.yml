@@ -64,3 +64,15 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+be_simple_soap:
+    cache:
+        type:     disk
+        lifetime: 86400
+        limit:    5
+    services:
+      BookApi:
+          namespace: http://localhost:8000/ws/BookApi/1.0/
+          binding: rpc-literal
+          resource: "@AppBundle/Controller/Soap/BookController.php"
+          resource_type: annotation

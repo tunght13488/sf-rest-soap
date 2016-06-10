@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use BeSimple\SoapBundle\ServiceDefinition\Annotation as Soap;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="book")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BookRepository")
+ * @Soap\Alias("Book")
  */
 class Book
 {
@@ -18,6 +20,7 @@ class Book
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Soap\ComplexType("int")
      */
     private $id;
 
@@ -25,6 +28,7 @@ class Book
      * @var string
      *
      * @ORM\Column(name="isbn", type="string", length=255, unique=true)
+     * @Soap\ComplexType("string")
      */
     private $isbn;
 
@@ -32,6 +36,7 @@ class Book
      * @var string
      *
      * @ORM\Column(name="author", type="string", length=255, nullable=true)
+     * @Soap\ComplexType("string")
      */
     private $author;
 
@@ -39,6 +44,7 @@ class Book
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Soap\ComplexType("string")
      */
     private $title;
 
@@ -46,6 +52,7 @@ class Book
      * @var \DateTime
      *
      * @ORM\Column(name="publish_date", type="date")
+     * @Soap\ComplexType("date")
      */
     private $publishDate;
 
@@ -53,6 +60,7 @@ class Book
      * @var string
      *
      * @ORM\Column(name="rating", type="decimal", precision=10, scale=2, nullable=true)
+     * @Soap\ComplexType("float")
      */
     private $rating;
 

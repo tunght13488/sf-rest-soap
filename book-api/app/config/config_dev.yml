@@ -32,3 +32,14 @@ monolog:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+
+bazinga_faker:
+    orm: doctrine
+    entities:
+        AppBundle\Entity\Book:
+            number: 20
+            custom_formatters:
+                isbn: { method: isbn13 }
+                author: { method: name }
+                title: { method: sentence }
+                rating: { method: randomFloat, parameters: [~, 0, 10] }

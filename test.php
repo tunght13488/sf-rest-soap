@@ -3,36 +3,41 @@
 // #1
 $a = 4;
 $b = 13;
-function my_swap(&$a, &$b) {
+function my_swap(&$a, &$b)
+{
     list($a, $b) = [$b, $a];
 }
+
 my_swap($a, $b);
-echo $a . "\n";
-echo $b . "\n";
+echo $a."\n";
+echo $b."\n";
 
 echo "--------\n";
 
 // #2
-function my_strlen($str) {
+function my_strlen($str)
+{
     for ($i = 0; ; $i++) {
         if (!isset($str[$i])) {
             return $i;
         }
     }
 }
+
 $tests = [
     'abc',
     'asdf',
 ];
 foreach ($tests as $test) {
-    echo "my_strlen('$test') = ".my_strlen($test) . "\n";
-    echo "strlen('$test') = ".strlen($test) . "\n";
+    echo "my_strlen('$test') = ".my_strlen($test)."\n";
+    echo "strlen('$test') = ".strlen($test)."\n";
 }
 
 echo "--------\n";
 
 // #3
-function my_strpos($haystack, $needle) {
+function my_strpos($haystack, $needle)
+{
     $haystack_len = my_strlen($haystack);
     $needle_len = my_strlen($needle);
     for ($i = 0; $i < $haystack_len - $needle_len + 1; $i++) {
@@ -48,15 +53,17 @@ function my_strpos($haystack, $needle) {
             return $i;
         }
     }
+
     return false;
 }
+
 $tests = [
     ['abcabc', 'ca'],
     ['abc', 'd'],
 ];
 foreach ($tests as $test) {
-    echo "my_strpos('" . $test[0] . "', '" . $test[1] . "') = " . my_strpos($test[0], $test[1]) . "\n";
-    echo "strpos('" . $test[0] . "', '" . $test[1] . "') = " . strpos($test[0], $test[1]) . "\n";
+    echo "my_strpos('".$test[0]."', '".$test[1]."') = ".my_strpos($test[0], $test[1])."\n";
+    echo "strpos('".$test[0]."', '".$test[1]."') = ".strpos($test[0], $test[1])."\n";
 }
 
 echo "--------\n";
@@ -67,10 +74,13 @@ an array of single digit numbers: $numbersArray = array(1,7,3,9,5,8);
 and a number of switches allowed ($numberOfSwitchesAllowed).
 Considering the fact that executing a switch means moving 2 adjacent items in the array to each other's positions (i.e. swapping them), complete the function in such a way, that by executing no more than the number of switches allowed, it will output the greatest possible number at the end.
  */
-function calculateHighestNumber(array $numbersArray, $numberOfSwitchesAllowed = 5) {
-
+function calculateHighestNumber(array $numbersArray, $numberOfSwitchesAllowed = 5)
+{
     $max = 0;
-    $trySwappingElements = function ($numbers, $switchesLeft, $previousSwitch = null) use (&$trySwappingElements, &$max) {
+    $trySwappingElements = function ($numbers, $switchesLeft, $previousSwitch = null) use (
+        &$trySwappingElements,
+        &$max
+    ) {
         // echo 'numbers: ' . implode('', $numbers) . "\n";
         // echo 'switchesLeft: ' . $switchesLeft . "\n";
         // echo 'previousSwitch: ' . $previousSwitch . "\n";
@@ -81,6 +91,7 @@ function calculateHighestNumber(array $numbersArray, $numberOfSwitchesAllowed = 
                 $max = $value;
                 // echo 'max: ' . $max . "\n";
             }
+
             return;
         }
         for ($i = 0; $i < count($numbers) - 1; $i++) {
@@ -92,23 +103,25 @@ function calculateHighestNumber(array $numbersArray, $numberOfSwitchesAllowed = 
         }
     };
     $trySwappingElements($numbersArray, $numberOfSwitchesAllowed);
+
     return $max;
 }
-echo calculateHighestNumber([1, 7, 3, 9, 5, 8]) . "\n";
+
+echo calculateHighestNumber([1, 7, 3, 9, 5, 8])."\n";
 
 echo "--------\n";
 
 // #5
 // original
-$a = array('bla' => 1, '2' => 0, 'test' => 'testVal', '3' => 3);
-$b = array();
+$a = ['bla' => 1, '2' => 0, 'test' => 'testVal', '3' => 3];
+$b = [];
 for ($i = 1; $i <= count($a); $i++) {
     $b[$i] = !empty($a[$i]) ? $a[$i] : 0;
 }
 print_r($b);
 // optimized
-$a = array('bla' => 1, '2' => 0, 'test' => 'testVal', '3' => 3);
-$b = array();
+$a = ['bla' => 1, '2' => 0, 'test' => 'testVal', '3' => 3];
+$b = [];
 $count_a = count($a);
 for ($i = 1; $i <= $count_a; $i++) {
     $b[$i] = !empty($a[$i]) ? $a[$i] : 0;
@@ -133,10 +146,10 @@ for ($i = 0; $i < $n; $i++) {
 }
 // show the matrix
 echo implode("\n", array_map(function ($row) {
-    return implode(' ', array_map(function ($number) {
-        return str_pad($number, 3, " ", STR_PAD_LEFT);
-    }, $row));
-}, $a)) . "\n";
+        return implode(' ', array_map(function ($number) {
+            return str_pad($number, 3, " ", STR_PAD_LEFT);
+        }, $row));
+    }, $a))."\n";
 
 $x = $y = ($n - 1) / 2; // starting point
 $directions = [
@@ -165,6 +178,7 @@ $walk = function ($x, $y, $direction) use ($a, &$visited, &$steps, $directions, 
         if (!isset($a[$x]) || !isset($a[$x][$y]) || $visited[$x][$y] === true) {
             return false;
         }
+
         return true;
     };
 
@@ -193,7 +207,7 @@ $walk = function ($x, $y, $direction) use ($a, &$visited, &$steps, $directions, 
     $walk($x, $y, $direction);
 };
 $walk($x, $y, $direction);
-echo 'steps: ' . implode(' ', $steps) . "\n";
+echo 'steps: '.implode(' ', $steps)."\n";
 
 echo "--------\n";
 
@@ -211,3 +225,4 @@ echo "--------\n";
 // We really like to read lorem ipsums - please don't spend time looking for real life data.
 // Please provide instructions how to run and test.
 
+echo "please check folder book-api\n";

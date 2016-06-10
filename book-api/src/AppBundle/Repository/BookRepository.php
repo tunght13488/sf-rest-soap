@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,4 +13,28 @@ use Doctrine\ORM\EntityRepository;
  */
 class BookRepository extends EntityRepository
 {
+    /**
+     * @param $conditions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function findByConditions($conditions)
+    {
+        $criteria = Criteria::create();
+        foreach ($conditions as $condition => $value) {
+            switch ($condition) {
+                case 'min_date':
+                    $criteria->andWhere(Criteria::expr()->gte('publishDate', \DateTime::createFromFormat('Y-m-d', $value)));
+                    break;
+                case 'max_date':
+                    $criteria->andWhere(Criteria::expr()->lte('publishDate', \DateTime::createFromFormat('Y-m-d', $value)));
+                    break;
+                case 'min_rate':
+                    $criteria->andWhere(Criteria::expr()->gte('rating', $value));
+                    break;
+            }
+        }
+
+        return $this->matching($criteria);
+    }
 }
